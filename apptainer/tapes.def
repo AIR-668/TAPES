@@ -1,0 +1,14 @@
+Bootstrap: docker
+From: pytorch/pytorch:2.2.2-cuda12.1-cudnn8-runtime
+
+%post
+    apt update && apt install -y git wget curl
+    pip install --upgrade pip
+    pip install transformers==4.39.3 torch torchvision
+
+%environment
+    export PYTHONUNBUFFERED=1
+    export TRANSFORMERS_CACHE=/workspace/.cache/huggingface
+
+%runscript
+    exec python3 "$@"
