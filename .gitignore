@@ -178,3 +178,8 @@ cython_debug/
 
 # Logs and experiment results
 logs/
+
+# data
+data/.txt
+data/.csv
+data/.json
