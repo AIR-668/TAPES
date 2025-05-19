@@ -172,3 +172,9 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Apptainer images
+*.sif
+
+# Logs and experiment results
+logs/
