@@ -2,13 +2,39 @@ Bootstrap: docker
 From: pytorch/pytorch:2.2.2-cuda12.1-cudnn8-runtime
 
 %post
-    apt update && apt install -y git wget curl
+    apt update && apt install -y git curl wget
+
+    # Python环境更新
     pip install --upgrade pip
-    pip install transformers==4.39.3 torch torchvision
+
+    # TAPES (BiomedBERT)
+    pip install transformers==4.39.3
+
+    # Table-meets-LLM requirements
+    pip install \
+        datasets \
+        openai \
+        pandas \
+        scikit-learn \
+        sentencepiece \
+        evaluate \
+        bitsandbytes \
+        peft \
+        accelerate \
+        trl \
+        deepspeed \
+        auto-gptq \
+        vllm
+
+    # 可选: 克隆 table-meets-llm 仓库（放入默认路径）
+    # mkdir -p /workspace/repos
+    # cd /workspace/repos
+    # git clone https://github.com/Y-Sui/Table-meets-LLM.git
 
 %environment
     export PYTHONUNBUFFERED=1
     export TRANSFORMERS_CACHE=/workspace/.cache/huggingface
+    export HF_HOME=/workspace/.cache/huggingface
 
 %runscript
     exec python3 "$@"
