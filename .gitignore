@@ -186,6 +186,6 @@ data/*.json
 data/*.pt
 
 # LLM
-.cache/
-repos/Table-meets-LLM/.venv/
-repos/Table-meets-LLM/__pycache__/
+Table-meets-LLM/.venv/
+Table-meets-LLM/__pycache__/
+Table-meets-LLM/.ipynb_checkpoints/
