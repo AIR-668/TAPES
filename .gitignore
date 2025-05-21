@@ -183,3 +183,9 @@ logs/
 data/*.txt
 data/*.csv
 data/*.json
+data/*.pt
+
+# LLM
+.cache/
+repos/Table-meets-LLM/.venv/
+repos/Table-meets-LLM/__pycache__/
