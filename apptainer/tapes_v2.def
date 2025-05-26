@@ -7,29 +7,35 @@ From: pytorch/pytorch:2.2.2-cuda12.1-cudnn8-runtime
     # 升级 pip
     pip install --upgrade pip
 
-    # === BiomedBERT + Table-GPT 共同依赖 ===
+    # 安装 BiomedBERT + Table-meets-LLM 所需库（兼容 peft）
     pip install \
         transformers==4.39.3 \
         torch \
-        pandas \
         datasets \
         openai \
-        openpyxl \
-        vllm \
-        deepspeed
+        pandas \
+        scikit-learn \
+        sentencepiece \
+        accelerate \
+        evaluate \
+        bitsandbytes \
+        huggingface_hub>=0.20.0 \
+        peft
 
-    # === 可视化工具 + notebook + WonderDB 支持 ===
+    # 安装 jupyter 支持（可选）
+    pip install notebook ipykernel
+
+    # 可视化工具和数据库客户端
     pip install \
         matplotlib \
         seaborn \
         plotly \
         wandb \
         pymongo \
-        ipywidgets \
-        notebook \
-        ipykernel
+        pandas \
+        ipywidgets
 
-    # 创建工作目录
+    # 建立默认工作目录
     mkdir -p /workspace
 
 %environment
