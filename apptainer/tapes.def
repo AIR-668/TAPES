@@ -25,6 +25,16 @@ From: pytorch/pytorch:2.2.2-cuda12.1-cudnn8-runtime
     # 安装 jupyter 支持（可选）
     pip install notebook ipykernel
 
+    # 可视化工具和数据库客户端
+    pip install \
+        matplotlib \
+        seaborn \
+        plotly \
+        wandb \
+        pymongo \
+        pandas \
+        ipywidgets
+
     # 建立默认工作目录
     mkdir -p /workspace
 
