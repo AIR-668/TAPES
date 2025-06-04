@@ -1,0 +1,41 @@
+# BiomedBERT + Set2Sequence Training Container
+Bootstrap: docker
+From: pytorch/pytorch:2.1.0-cuda12.1-cudnn8-runtime
+
+%post
+    apt-get update && apt-get install -y --no-install-recommends \
+        python3 python3-pip git wget curl ca-certificates
+
+    # 更新 pip
+    python3 -m pip install --upgrade pip
+
+    # 安装依赖
+    pip install --no-cache-dir \
+        torch torchvision torchaudio \
+        transformers \
+        accelerate \
+        wandb \
+        scikit-learn \
+        pandas
+
+    # 设置 transformer 缓存目录（避免反复下载模型）
+    mkdir -p /models/hf-cache
+    echo "TRANSFORMERS_CACHE=/models/hf-cache" >> /etc/environment
+
+    # 下载 BiomedBERT 模型（离线部署友好）
+    python3 -c "from huggingface_hub import snapshot_download; \
+        snapshot_download(repo_id='microsoft/BiomedNLP-BiomedBERT-base-uncased-abstract-fulltext', \
+                          local_dir='/models/BiomedBERT', local_dir_use_symlinks=False)"
+
+%environment
+    export TRANSFORMERS_CACHE=/models/hf-cache
+    export HF_HOME=/models/hf-cache
+    export WANDB_MODE=online
+
+%labels
+    Author="Your Name <your@email.com>"
+    Version="1.0"
+    Description="Apptainer container for pseudotime prediction with BiomedBERT and set-to-sequence model"
+
+%runscript
+    echo "[Container Ready] To run: python3 train_model.py"
